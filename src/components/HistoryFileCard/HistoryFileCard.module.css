@@ -1,0 +1,36 @@
+.container {
+    display: flex;
+    flex-direction: row;
+    gap: 20px;
+    width: 100%;
+}
+
+.infoContainer {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+    width: 100%;
+    padding: 20px;
+    border-radius: 25px;
+    border: 1px solid gray;
+    background-color: #CB81FF;
+}
+
+.item {
+    font-size: 20px;
+    color: black;
+}
+
+.darkItem {
+    font-size: 20px;
+    color: gray
+}
+
+.button {
+    padding: 10px;
+    border: none;
+    border-radius: 15px;
+    background-color: white;
+}

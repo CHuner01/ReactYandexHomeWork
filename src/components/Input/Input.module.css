@@ -1,0 +1,70 @@
+.container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 5px;
+    width: 250px;
+}
+
+.row {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    gap: 5px;
+}
+
+.input {
+    display: none;
+}
+
+.label {
+    font-size: 16px;
+    text-align: center;
+}
+
+.deleteButton {
+    border: none;
+    border-radius: 7px;
+    padding: 10px;
+}
+
+.inputButton {
+    border: none;
+    border-radius: 7px;
+    font-size: 16px;
+    padding: 10px 15px;
+    text-align: center;
+    width: 170px;
+    display: flex;
+    justify-content: center;
+
+    background-color: white;
+}
+
+.inputButton.success {
+    background-color: #D4FAE6;
+}
+
+.inputButton.file {
+    background-color: #CB81FF;
+}
+
+.inputButton.error {
+    background-color: #FF5F00;
+    color: white;
+}
+
+
+.isSuccess {}
+
+.isError {}
+
+.loader {
+    width: 25px;
+    aspect-ratio: 1;
+    border-radius: 50%;
+    border: 3px solid white;
+    border-right-color: lightblue;
+    animation: l2 1s infinite linear;
+}
+@keyframes l2 {to{transform: rotate(1turn)}}
