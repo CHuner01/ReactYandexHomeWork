@@ -26,20 +26,18 @@ const useFileAnalysisPage = () => {
         if (!selectedFile) {
             return;
         }
-
+        const localizedDate = new Date().toLocaleDateString();
         if (latestInfo) {
-            console.log('if');
             addFile({
                 fileName: selectedFile.name,
-                fileDate: '',
+                fileDate: localizedDate,
                 fileInfo: latestInfo,
                 isSuccessful: true,
             });
         } else {
-            console.log('else');
             addFile({
                 fileName: selectedFile.name,
-                fileDate: '',
+                fileDate: localizedDate,
                 fileInfo: null,
                 isSuccessful: false,
             });
