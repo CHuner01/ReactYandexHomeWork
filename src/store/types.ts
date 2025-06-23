@@ -1,4 +1,4 @@
-import type { AnalyzedFile } from '../config/types.ts';
+import type { AnalyzedFile, FileInfo } from '../config/types.ts';
 
 export interface FilesSlice {
     files: AnalyzedFile[];
@@ -6,7 +6,6 @@ export interface FilesSlice {
     addFile: (file: AnalyzedFile) => void;
     deleteFile: (deleteIndex: number) => void;
     deleteAllFiles: () => void;
-    analyzeFile: (file: File) => void;
     generateFile: () => void;
 }
 
@@ -16,4 +15,12 @@ export interface CurrentFileSlice {
     removeSelectedFile: () => void;
 }
 
-export type Store = FilesSlice & CurrentFileSlice;
+export interface AnalysisSlice {
+    fileAnalysisInfo: FileInfo | null;
+    isAnalysisLoading: boolean;
+    isAnalysisError: boolean;
+    removefileAnalysisInfo: () => void;
+    analyzeFile: (file: File | null) => void;
+}
+
+export type Store = FilesSlice & CurrentFileSlice & AnalysisSlice;

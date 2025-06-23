@@ -1,4 +1,4 @@
-import type { AnalyzedFile, FileInfo } from '../config/types.ts';
+import type { AnalyzedFile } from '../config/types.ts';
 import { API_ENDPOINTS } from '../config/endpoints.ts';
 import { saveBlobAsFile } from '../utils/SaveFile.ts';
 
@@ -23,7 +23,7 @@ export const filesApi = {
         localStorage.setItem(STORAGE_KEY, JSON.stringify(files));
         return files;
     },
-    analyzeFile: async (formData: FormData): Promise<FileInfo> => {
+    analyzeFile: async (formData: FormData) => {
         try {
             const response = await fetch(
                 `${API_ENDPOINTS.ANALYSE_FILE}?rows=${rows}`,
@@ -33,45 +33,11 @@ export const filesApi = {
                 },
             );
 
-            const reader = response.body?.getReader();
-            if (!reader) {
-                console.error('Нет тела ответа для чтения');
-                return Promise.reject(new Error('Нет тела ответа'));
+            if (!response.ok) {
+                throw new Error(`${response.status}`);
             }
 
-            const decoder = new TextDecoder('utf-8');
-            let { value: chunk, done: readerDone } = await reader.read();
-            let buffer = '';
-
-            while (!readerDone) {
-                buffer += decoder.decode(chunk, { stream: true });
-                const linesArr = buffer.split('\n');
-                buffer = linesArr.pop() || '';
-
-                for (const line of linesArr) {
-                    if (line.trim()) {
-                        try {
-                            const json = JSON.parse(line);
-                            return Promise.resolve(json);
-                        } catch (e) {
-                            console.error('Ошибка парсинга JSON:', e, line);
-                        }
-                    }
-                }
-
-                ({ value: chunk, done: readerDone } = await reader.read());
-            }
-
-            if (buffer.trim()) {
-                try {
-                    return Promise.resolve(JSON.parse(buffer));
-                } catch (e) {
-                    console.error('Ошибка парсинга JSON в конце:', e, buffer);
-                }
-            }
-            return Promise.reject(
-                new Error('Не удалось получить результат анализа'),
-            );
+            return response
         } catch (error) {
             console.log(error);
             return Promise.reject(error);

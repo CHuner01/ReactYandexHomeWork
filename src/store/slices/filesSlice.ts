@@ -22,9 +22,6 @@ export const createFilesSlice: StateCreator<FilesSlice> = (set, get) => ({
         set({ files: [] });
         fileService.setFiles([]);
     },
-    analyzeFile(file: File) {
-        return fileService.analyzeFile(file);
-    },
     generateFile() {
         return fileService.generateFile();
     },

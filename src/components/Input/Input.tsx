@@ -1,13 +1,13 @@
 import styles from './Input.module.css';
 import { useStore } from '../../store/store.ts';
 import { type ChangeEvent, useRef } from 'react';
+import CrossIcon from '../../../public/CrossIcon.svg';
 
 interface InputProps {
     placeholder: string;
     isLoading?: boolean;
     isError?: boolean;
     isSuccess?: boolean;
-    label: string;
 }
 
 const Input = ({
@@ -15,10 +15,14 @@ const Input = ({
     isLoading = false,
     isError = false,
     isSuccess = false,
-    label,
 }: InputProps) => {
     const fileRef = useRef<HTMLInputElement | null>(null);
-    const { selectedFile, setSelectedFile, removeSelectedFile } = useStore();
+    const {
+        selectedFile,
+        setSelectedFile,
+        removeSelectedFile,
+        removefileAnalysisInfo,
+    } = useStore();
 
     const handleClick = () => {
         fileRef.current?.click();
@@ -33,6 +37,7 @@ const Input = ({
 
     const clearFile = () => {
         removeSelectedFile();
+        removefileAnalysisInfo();
         if (fileRef.current) {
             fileRef.current.value = '';
         }
@@ -70,13 +75,26 @@ const Input = ({
                     )}
                 </button>
                 {selectedFile && !isLoading && (
-                    <button
-                        onClick={clearFile}
-                        className={styles.deleteButton}
-                    ></button>
+                    <button onClick={clearFile} className={styles.deleteButton}>
+                        <img
+                            className={styles.crossIcon}
+                            src={CrossIcon}
+                            alt="icon"
+                        />
+                    </button>
                 )}
             </div>
-            <p className={styles.label}>{label}</p>
+            <p className={styles.label}>
+                {isError
+                    ? 'упс, не то...'
+                    : isSuccess
+                      ? 'готово!'
+                      : isLoading
+                        ? 'идёт парсинг файла'
+                        : selectedFile
+                          ? 'файл загружен!'
+                          : 'или перетащите сюда'}
+            </p>
         </div>
     );
 };
