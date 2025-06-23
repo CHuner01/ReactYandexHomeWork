@@ -2,18 +2,22 @@ import Navbar from '../../components/Navbar/Navbar.tsx';
 import styles from './FileAnalysisPage.module.css';
 import Button from '../../components/Button/Button.tsx';
 import Input from '../../components/Input/Input.tsx';
-import { useStore } from '../../store/store.ts';
 import InfoCard from '../../components/InfoCard/InfoCard.tsx';
 import { FileAnalysisText } from '../../config/constants.ts';
+import useFileAnalysisPage from './useFileAnalysisPage.ts';
 
 const FileAnalysisPage = () => {
     const {
         selectedFile,
-        analyzeFile,
-        fileAnalysisInfo,
+        isDragOver,
         isAnalysisLoading,
         isAnalysisError,
-    } = useStore();
+        isInputSuccess,
+        setIsDragOver,
+        isButtonVisible,
+        onClickButton,
+        fileAnalysisInfo,
+    } = useFileAnalysisPage();
 
     return (
         <div className={styles.container}>
@@ -25,30 +29,25 @@ const FileAnalysisPage = () => {
                     время
                 </p>
                 <div
-                    className={`${styles.inputContainer} ${selectedFile ? styles.blank : ''}`}
+                    className={`${styles.inputContainer} ${selectedFile ? styles.blank : isDragOver ? styles.onDragOver : ''}`}
                 >
                     <Input
                         placeholder={'Загрузить файл'}
                         isLoading={isAnalysisLoading}
                         isError={isAnalysisError}
-                        isSuccess={
-                            !isAnalysisLoading &&
-                            !isAnalysisError &&
-                            !!fileAnalysisInfo
-                        }
+                        isSuccess={isInputSuccess}
+                        setIsDragOver={setIsDragOver}
                     />
                 </div>
 
-                {!isAnalysisLoading &&
-                    !isAnalysisError &&
-                    !fileAnalysisInfo && (
-                        <Button
-                            onClick={() => analyzeFile(selectedFile)}
-                            isActive={!!selectedFile && !isAnalysisLoading}
-                        >
-                            Отправить
-                        </Button>
-                    )}
+                {isButtonVisible && (
+                    <Button
+                        onClick={onClickButton}
+                        isActive={!!selectedFile && !isAnalysisLoading}
+                    >
+                        Отправить
+                    </Button>
+                )}
             </div>
             <div className={styles.infoContainer}>
                 {fileAnalysisInfo ? (

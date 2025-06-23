@@ -10,19 +10,18 @@ export const createFilesSlice: StateCreator<FilesSlice> = (set, get) => ({
     },
     addFile: (file: AnalyzedFile) => {
         const newFiles: AnalyzedFile[] = [...get().files, file];
+        fileService.setFiles(newFiles);
         set({ files: newFiles });
     },
     deleteFile: (deleteIndex: number) => {
         const newFiles = get().files.filter(
             (_: AnalyzedFile, index: number) => index !== deleteIndex,
         );
+        fileService.setFiles(newFiles);
         set({ files: newFiles });
     },
     deleteAllFiles: () => {
         set({ files: [] });
         fileService.setFiles([]);
-    },
-    generateFile() {
-        return fileService.generateFile();
     },
 });

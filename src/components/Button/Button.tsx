@@ -5,14 +5,20 @@ interface ButtonProps {
     children?: ReactNode;
     isActive?: boolean;
     onClick?: () => void;
+    color?: 'primary' | 'secondary';
 }
 
-const Button = ({ children, isActive = true, onClick }: ButtonProps) => {
+const Button = ({
+    children,
+    isActive = true,
+    onClick,
+    color = 'primary',
+}: ButtonProps) => {
     return (
         <>
             <button
                 onClick={onClick}
-                className={`${styles.button} ${isActive ? '' : styles.isDisabled}`}
+                className={`${styles.button} ${isActive ? '' : styles.isDisabled} ${color === 'secondary' ? styles.black : ''}`}
             >
                 {children}
             </button>

@@ -2,53 +2,44 @@
     display: flex;
     flex-direction: column;
     justify-content: center;
+    align-items: center;
     gap: 5px;
-    width: 250px;
+    color: black;
 }
 
 .row {
     display: flex;
     flex-direction: row;
     justify-content: center;
-    gap: 5px;
+    align-items: center;
+    gap: 10px;
 }
 
-.input {
-    display: none;
-}
-
-.label {
-    font-size: 16px;
-    text-align: center;
-}
-
-.inputButton {
+.button {
     border: none;
-    border-radius: 7px;
+    border-radius: 5px;
     font-size: 16px;
     padding: 10px 15px;
-    text-align: center;
-    width: 170px;
-    display: flex;
-    justify-content: center;
 
-    background-color: white;
+    background-color: #2AE881;
 }
 
-.inputButton.success {
-    background-color: #D4FAE6;
-}
-
-.inputButton.file {
+.buttton.loading {
     background-color: #CB81FF;
 }
 
-.inputButton.error {
-    background-color: #FF5F00;
-    color: white;
+.button.success {
+    background-color: #D4FAE6;
 }
 
+.button.error {
+    background-color: #FF5F00;
+}
 
+.text {
+    font-size: 16px;
+    text-align: center;
+}
 
 .loader {
     width: 25px;

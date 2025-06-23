@@ -16,11 +16,11 @@ export const fileService = {
         const formData = new FormData();
         formData.append('file', file);
 
-        const fileInfo = await filesApi.analyzeFile(formData);
+        const response = await filesApi.analyzeFile(formData);
 
-        return fileInfo;
+        return response;
     },
-    generateFile() {
-        return filesApi.generateFile();
+    async generateFile() {
+        return await filesApi.generateFile();
     },
 };

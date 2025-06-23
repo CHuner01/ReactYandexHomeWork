@@ -1,0 +1,14 @@
+.crossButton {
+    border: none;
+    border-radius: 7px;
+    padding: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: black;
+}
+
+.crossIcon {
+    color: white;
+    width: 15px;
+}

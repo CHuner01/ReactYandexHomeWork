@@ -1,13 +1,13 @@
 import styles from './Input.module.css';
-import { useStore } from '../../store/store.ts';
-import { type ChangeEvent, useRef } from 'react';
-import CrossIcon from '../../../public/CrossIcon.svg';
+import CrossButton from '../CrossButton/CrossButton.tsx';
+import useInput from './useInput.ts';
 
 interface InputProps {
     placeholder: string;
     isLoading?: boolean;
     isError?: boolean;
     isSuccess?: boolean;
+    setIsDragOver: (value: boolean) => void;
 }
 
 const Input = ({
@@ -15,40 +15,31 @@ const Input = ({
     isLoading = false,
     isError = false,
     isSuccess = false,
+    setIsDragOver,
 }: InputProps) => {
-    const fileRef = useRef<HTMLInputElement | null>(null);
     const {
         selectedFile,
-        setSelectedFile,
-        removeSelectedFile,
-        removefileAnalysisInfo,
-    } = useStore();
-
-    const handleClick = () => {
-        fileRef.current?.click();
-    };
-
-    const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
-        const file = e.target.files?.[0];
-        if (file) {
-            setSelectedFile(file);
-        }
-    };
-
-    const clearFile = () => {
-        removeSelectedFile();
-        removefileAnalysisInfo();
-        if (fileRef.current) {
-            fileRef.current.value = '';
-        }
-    };
+        clearFile,
+        handleDrop,
+        handleClick,
+        handleDragOver,
+        handleDragLeave,
+        handleChange,
+        fileRef,
+    } = useInput({ setIsDragOver });
 
     return (
-        <div className={styles.container}>
+        <div
+            className={styles.container}
+            onDrop={handleDrop}
+            onDragOver={handleDragOver}
+            onDragLeave={handleDragLeave}
+        >
             <div className={styles.row}>
                 <input
                     ref={fileRef}
                     type="file"
+                    accept=".csv"
                     className={styles.input}
                     placeholder={placeholder}
                     onChange={handleChange}
@@ -75,13 +66,7 @@ const Input = ({
                     )}
                 </button>
                 {selectedFile && !isLoading && (
-                    <button onClick={clearFile} className={styles.deleteButton}>
-                        <img
-                            className={styles.crossIcon}
-                            src={CrossIcon}
-                            alt="icon"
-                        />
-                    </button>
+                    <CrossButton onClick={clearFile} />
                 )}
             </div>
             <p className={styles.label}>

@@ -3,6 +3,7 @@
     flex-direction: row;
     gap: 20px;
     width: 100%;
+    /*max-width: 900px;*/
 }
 
 .infoContainer {
@@ -12,7 +13,7 @@
     justify-content: space-between;
     gap: 20px;
     width: 100%;
-    padding: 20px;
+    padding: 20px 30px;
     border-radius: 25px;
     border: 1px solid gray;
     background-color: #CB81FF;
@@ -29,8 +30,15 @@
 }
 
 .button {
-    padding: 10px;
+    padding: 20px;
     border: none;
     border-radius: 15px;
     background-color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.trashIcon {
+    width: 23px;
 }

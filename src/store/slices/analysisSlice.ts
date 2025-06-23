@@ -1,6 +1,7 @@
 import { fileService } from '../../service/fileService.ts';
 import type { StateCreator } from 'zustand/vanilla';
 import type { AnalysisSlice } from '../types.ts';
+import { roundFileInfo } from '../../utils/roundFileInfo.ts';
 
 export const createAnalysisSlice: StateCreator<AnalysisSlice> = (set) => ({
     fileAnalysisInfo: null,
@@ -33,7 +34,7 @@ export const createAnalysisSlice: StateCreator<AnalysisSlice> = (set) => ({
             for (const line of linesArr) {
                 if (line.trim()) {
                     try {
-                        const json = JSON.parse(line);
+                        const json = roundFileInfo(JSON.parse(line));
                         set({ fileAnalysisInfo: json });
                     } catch (error) {
                         console.error(error);
@@ -48,7 +49,7 @@ export const createAnalysisSlice: StateCreator<AnalysisSlice> = (set) => ({
         if (buffer.trim()) {
             try {
                 set({
-                    fileAnalysisInfo: JSON.parse(buffer),
+                    fileAnalysisInfo: roundFileInfo(JSON.parse(buffer)),
                     isAnalysisLoading: false,
                 });
             } catch (error) {

@@ -11,3 +11,8 @@
     background-color: lightgray;
     color: gray;
 }
+
+.button.black {
+    background-color: #201B10;
+    color: white;
+}

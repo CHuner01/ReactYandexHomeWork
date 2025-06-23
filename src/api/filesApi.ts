@@ -1,6 +1,6 @@
 import type { AnalyzedFile } from '../config/types.ts';
 import { API_ENDPOINTS } from '../config/endpoints.ts';
-import { saveBlobAsFile } from '../utils/SaveFile.ts';
+import { saveFile } from '../utils/saveFile.ts';
 
 const apiParams = {
     size: 0.0001,
@@ -37,7 +37,7 @@ export const filesApi = {
                 throw new Error(`${response.status}`);
             }
 
-            return response
+            return response;
         } catch (error) {
             console.log(error);
             return Promise.reject(error);
@@ -56,7 +56,7 @@ export const filesApi = {
 
             if (contentType?.includes('text/csv')) {
                 const blob = await response.blob();
-                saveBlobAsFile(blob, 'file_1');
+                saveFile(blob, 'file_1');
             }
 
             if (contentType?.includes('application/json')) {

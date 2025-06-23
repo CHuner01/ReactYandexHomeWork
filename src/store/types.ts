@@ -6,7 +6,6 @@ export interface FilesSlice {
     addFile: (file: AnalyzedFile) => void;
     deleteFile: (deleteIndex: number) => void;
     deleteAllFiles: () => void;
-    generateFile: () => void;
 }
 
 export interface CurrentFileSlice {
@@ -23,4 +22,13 @@ export interface AnalysisSlice {
     analyzeFile: (file: File | null) => void;
 }
 
-export type Store = FilesSlice & CurrentFileSlice & AnalysisSlice;
+export interface GenerationSlice {
+    isGenerationLoading: boolean;
+    isGenerationError: boolean;
+    generateFile: () => void;
+}
+
+export type Store = FilesSlice &
+    CurrentFileSlice &
+    AnalysisSlice &
+    GenerationSlice;

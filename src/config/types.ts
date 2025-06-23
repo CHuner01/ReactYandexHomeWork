@@ -15,6 +15,6 @@ export interface FileInfo {
 export interface AnalyzedFile {
     fileName: string;
     fileDate: string;
-    fileInfo: FileInfo;
+    fileInfo: FileInfo | null;
     isSuccessful: boolean;
 }
